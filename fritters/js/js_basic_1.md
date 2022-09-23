@@ -15,7 +15,7 @@
 
 ## Conditional
 
- - `if` , `else` , `else if` , `switch` , `case` , `default`
+ - `if` , `else` , `else if` 
 ```
 if (condition) {
         // do something
@@ -161,8 +161,8 @@ array.find(function(currentValue, index, arr), thisValue);
 ```
 - `forEach`
 
-array.forEach(function(currentValue, index, arr), thisValue); 
 ```
+array.forEach(function(currentValue, index, arr), thisValue); 
 // currentValue: current element being processed in the array,
 // index: index of the current element being processed in the array,
 const numbers = [65, 44, 12, 4];
@@ -288,19 +288,4 @@ console.log(number.sum); // 3
 number.a = 5; 
 number.b = 7;
 console.log(number.sum); // 12
-```
-### Inheritance
-```
-const animal = {
-    name : 'animal',
-    age : 1,
-    hasTail : true
-};
-
-const dog extend animal = {
-    color : 'black'
-};
-```
-```
-```
 ```
