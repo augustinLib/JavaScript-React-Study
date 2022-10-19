@@ -114,3 +114,69 @@ var person = {
     }
 };
 ```
+## 프로퍼티 접근
+프로퍼티에 접근하는 방법은 다음과 같이 두 가지가 있다.
+- ### 마침표 표기법(dot notation)
+    마침표 프로퍼티 접근 연산자(.)를 사용한다.
+- ### 대괄호 표기법(bracket notation)
+    대괄호 프로퍼티 접근 연산자([...])을 사용한다.  
+    이 때, 대괄호 프로퍼티 접근 연산자 내부에 지정하는 프로퍼티 키는 반드시 따옴표로 감싼 문자열이어야 한다.  
+    대괄호 프로퍼티 접근 연산자 내에 따옴표롤 감싸지 않은 이름을 프로퍼티 키로 사용하면 자바스크립트 엔진은 식별자로 해석한다.
+
+```javascript
+var person = {
+    name : 'Lee'
+};
+
+// 마침표 표기법
+console.log(person.name);
+
+// 대괄호 표기법
+console.log(person['name']);
+
+// 대괄호 표기법 사용 시 따옴표로 감싸지 않은 이름을 프로퍼티 키로 할 경우
+console.log(person[name]); //-> 식별자로 해석하여 선언된 자바스크립트 엔진은 선언된 name을 찾음
+```
+또한, 객체에 존재하지 않는 프로퍼티에 접근하면 undefined를 반환한다.
+
+## 프로퍼티 값의 갱신, 프로퍼티 종적 생성과 삭제
+이미 존재하는 프로퍼티에 값을 할당하게 되면 프로퍼티 값이 갱신된다.
+```javascript
+// 프로퍼티 값 갱신
+var person = {
+  name: "Lee"
+};
+
+// person 객체에 name 프로퍼티가 존재하므로 name 프로퍼티의 값이 갱신된다
+person.name = "Kim"
+
+console.log(person.name)
+```
+
+또한, 존재하지 않는 프로퍼티에 값을 할당하게 된다면 프로퍼티가 동적으로 생성되어 추가되고, 프로퍼티 값이 할당된다.
+```javascript
+// 프로퍼티 동적 생성
+var person = {
+    name: "Lee"
+};
+
+// 존재하지 않는 프로퍼티인 age를 할당함으로, age 프로퍼티가 동적으로 생성되고 값이 할당된다
+person.age = 20;
+
+console.log(person)
+```
+`delete`연산자로 객체의 프로퍼티를 삭제할 수 있다. 이때 delete 연산자의 피연산자는 프로퍼티 값에 접근할 수 있는 표현식이어야만 하며,  
+만약 존재하지 않는 프로퍼티를 삭제하면 아무런 에러 없이 무시된다.
+```javascript
+// 프로퍼티 삭제
+var person = {
+    name: "Lee"
+};
+
+// 프로퍼티 동적 생성
+person.age = 20;
+
+// delete로 프로퍼티 삭제
+delete person.name
+console.log(person)
+```
