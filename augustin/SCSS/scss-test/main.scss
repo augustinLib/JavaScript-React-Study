@@ -1,0 +1,9 @@
+// 변수 선언
+$color: royalblue;
+
+.container {
+  // 중첩
+  h1 {
+    color: $color
+  }
+}
