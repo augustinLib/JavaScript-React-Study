@@ -26,14 +26,14 @@ npm install typescript
 ## TypeScript -> JavaScript 변환
 ```shell
 # 전역 설치일 경우 
-tsc test.ts #typescript 파일명
+tsc typeAnnotation.ts #typescript 파일명
 
 # 프로젝트에만 설치한 경우
-tsc --init # tsconfig.json 파일 생성
+npx tsc --init # tsconfig.json 파일 생성
 # 세 명령어 중 하나 선택하여 실행
-./node_modules/typescirpt/bin/tsc test.ts #typescript 파일명
-./node_modules/.bin/tsc test.ts #typescript 파일명
-npx tsc test.ts #typescript 파일명
+./node_modules/typescirpt/bin/tsc typeAnnotation.ts #typescript 파일명
+./node_modules/.bin/tsc typeAnnotation.ts #typescript 파일명
+npx tsc typeAnnotation.ts #typescript 파일명
 ```
 `tsc` 명령어 뒤에 TypeScript 파일을 입력하면, 해당 TypeScript 파일을 JavaScript로 변환한다.  
 
