@@ -1,0 +1,97 @@
+// 변수 선언
+$color: royalblue;
+
+.container {
+  // 중첩
+  h1 {
+    color: $color;
+    font-size: 28px;
+  }
+}
+
+// 자식 선택자 사용 중첩 시
+.container {
+  > ul {
+    li {
+      p {
+        color: red;
+      }
+    }
+  }
+}
+
+// &- 상위 선택자 참조
+.container {
+  ul {
+    li {
+      &:last-child {
+        color: chartreuse;
+        p {
+          color: chartreuse;
+        }
+      }
+    }
+  }
+}
+
+// 중첩된 속성
+.box {
+  $size: 40px;
+  font: {
+    weight: bold;
+    size: 20px;
+    family: sans-serif;
+  };
+
+  margin: {
+    top: 10px;
+    left: 40px;
+  };
+
+  padding: {
+    top: calc(50px / 2);
+    bottom: calc($size / 2);
+    left: 60px *1.5;
+    right: 50px;
+  };
+}
+
+//mixins
+@mixin center($size: 200px, $color: tomato) {
+  width: $size;
+  height: $size;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: $color;
+}
+
+.wrapper {
+  .item {
+    @include center;
+
+  }
+  @include center($size: 400px, $color: #000);
+  //@include center(400px, #000);
+}
+
+// 반복문
+// SCSS에서는 index 1부터 시작
+@for $i from 1 through 10 {
+  .box:nth-child(#{$i}) {
+    width: 100px * $i;
+  }
+}
+
+
+// 함수
+@function ratio($size, $ratio) {
+  @return $size * $ratio
+}
+
+.box2 {
+  $width: 100px;
+  width: $width;
+  height: ratio($width, calc(1/2));
+  @include center()
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Example</title>
+</head>
+<body>
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<script type="text/babel">
+		console.log(React);
+        console.log(ReactDOM);
+		// class component
+
+        // class ClassComponent extends React.Component {
+        //     render() {
+        //         return <div>Hello</div>;
+		// 	}
+		// }
+		//
+        // ReactDOM.render(
+        //     <ClassComponent/>,
+		// 	document.querySelector("#root")
+		// )
+
+		// function component
+		// 1번 방법
+		// function FunctionComponent() {
+        //     return <div>Hello</div>;
+		// }
+
+		// 2번 방법
+		// const FunctionComponent = () => <div>Hello</div>;
+		//
+        // ReactDOM.render(<FunctionComponent/>, document.querySelector("#root"))
+
+		// React.createElement(
+        //     type, // 태그 이름(문자열) or 리액트 컴포넌트 or React.Fragment
+		// 	[props], // 리액트 컴포넌트에 넣어주는 데이터 객체
+		// 	[...children]  // 자식으로 넣어주는 요소들
+		// )
+
+		// 1. 태그 이름(문자열)
+		// ReactDOM.render(
+        //     React.createElement('h1', null, `type이 "태그 이름 문자열" 입니다.`),
+		// 	document.querySelector("#root")
+		// );
+
+
+		// 2. React Component Type
+		// const Component = () => {
+        //     return React.createElement("p", null, `type이 "React Component" 입니다.`);
+		// };
+		//
+		// ReactDOM.render(
+        //     React.createElement(Component, null, null),
+		// 	// <Component></>Component> => <Component/> => <p>`type이 "React Component" 입니다.`</p>>
+		//
+        //     document.querySelector("#root")
+		// );
+
+		// 3. React.Fragment
+		ReactDOM.render(
+            React.createElement(React.Fragment, null, `type이 "React Fragment" 입니다.`),
+			document.querySelector("#root")
+		)
+		// 하위 태그 없이 자식(값)을 넣을 수 있음
+		// 해당 태그 밑에 바로 배열처럼 값을 넣고 싶을 때 사용되기도 함
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "01-Component",
+  "version": "1.0.0",
+  "description": "## Class component ```javascript import React from 'react';",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

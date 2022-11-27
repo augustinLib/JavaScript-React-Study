@@ -59,7 +59,7 @@ Temporary Items
 # Ignore code-workspaces
 *.code-workspace
 
-
+.idea/
 
 .cache/
 dist/
