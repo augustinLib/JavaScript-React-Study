@@ -42,6 +42,11 @@ textarea {
   width: 50%;
 }
 
+.DiaryEditor button:hover {
+  background-color: aliceblue;
+  color: black;
+}
+
 /* List */
 .DiaryList {
   background-color: #fff;
