@@ -1,22 +1,54 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useReducer,
+  useMemo,
+} from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 
-//https://jsonplaceholder.typicode.com/comments
+const reducer = function (state, action) {
+  switch (action.type) {
+    case "INIT": {
+      return action.data;
+    }
+    case "CREATE": {
+      const createdDate = new Date().getTime();
+      const newItem = {
+        ...action.data,
+        createdDate,
+      };
+      return [newItem, ...state];
+    }
+    case "REMOVE": {
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    case "EDIT": {
+      return state.map((it) =>
+        it.id === action.targetId ? { ...it, content: action.newContent } : it
+      );
+    }
+    default:
+      return state;
+  }
+};
+
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 const App = () => {
-  const [data, setData] = useState([]);
-
+  const [data, dispatch] = useReducer(reducer, []);
   const dataId = useRef(0);
 
-  const getData = async () => {
+  async function getData() {
     const res = await fetch(
       "https://jsonplaceholder.typicode.com/comments"
     ).then((res) => res.json());
     console.log(res);
 
-    const initData = res.slice(0, 20).map((it) => {
+    const initData = res.slice(0, 20).map(function (it) {
       return {
         author: it.email,
         content: it.body,
@@ -25,46 +57,60 @@ const App = () => {
         id: dataId.current++,
       };
     });
+    dispatch({ type: "INIT", data: initData });
+  }
 
-    setData(initData);
-  };
-
-  useEffect(() => {
+  useEffect(function () {
     getData();
   }, []);
 
-  const onCreate = (author, content, emotion) => {
-    const createdDate = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      createdDate,
-      id: dataId.current,
-    };
+  const onCreate = useCallback(function (author, content, emotion) {
+    dispatch({
+      type: "CREATE",
+      data: { author, content, emotion, id: dataId.current },
+    });
     dataId.current += 1;
-    setData([newItem, ...data]);
-  };
+  }, []);
 
-  const onRemove = (targetId) => {
-    const newDiaryList = data.filter((it) => it.id !== targetId);
-    setData(newDiaryList);
-  };
+  const onRemove = useCallback(function (targetId) {
+    dispatch({ type: "REMOVE", data: targetId });
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
-      data.map((it) =>
-        it.id === targetId ? { ...it, content: newContent } : it
-      )
-    );
-  };
+  const onEdit = useCallback(function (targetId, newContent) {
+    dispatch({ type: "EDIT", targetId, newContent });
+  }, []);
+
+  const getDiaryAnalysis = useMemo(
+    function () {
+      const goodCount = data.filter((it) => it.emotion >= 3).length;
+      const badCount = data.length - goodCount;
+      const goodRatio = (goodCount / data.length) * 100;
+      return { goodCount, badCount, goodRatio };
+    },
+    [data.length]
+  );
+  // returns callback function's return value as an object
+
+  const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
+
+  const memoizedDispatch = useMemo(function () {
+    return { onCreate, onRemove, onEdit };
+  }, []);
 
   return (
-    <div className="App">
-      <DiaryEditor onCreate={onCreate} />
-      <br />
-      <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
-    </div>
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchContext.Provider value={memoizedDispatch}>
+        <div className="App">
+          <DiaryEditor onCreate={onCreate} />
+          <br />
+          <div>전체 일기: {data.length}</div>
+          <div>긍정 일기: {goodCount}</div>
+          <div>부정 일기: {badCount}</div>
+          <div>긍정 비율: {goodRatio.toFixed(2)}%</div>
+          <DiaryList onEdit={onEdit} onRemove={onRemove} />
+        </div>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
   );
 };
 

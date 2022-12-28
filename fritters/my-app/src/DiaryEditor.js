@@ -1,6 +1,9 @@
-import { useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { DiaryDispatchContext } from "./App";
 
-const DiaryEditor = ({ onCreate }) => {
+const DiaryEditor = () => {
+  const { onCreate } = useContext(DiaryDispatchContext);
+
   const authorInput = useRef();
   const contentInput = useRef();
 
@@ -10,14 +13,14 @@ const DiaryEditor = ({ onCreate }) => {
     emotion: 1,
   });
 
-  const handleChangeState = (e) => {
+  function handleChangeState(e) {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
-  };
+  }
 
-  const handleSubmit = () => {
+  function handleSubmit() {
     if (state.author.length < 1) {
       authorInput.current.focus();
       return;
@@ -33,7 +36,7 @@ const DiaryEditor = ({ onCreate }) => {
       content: "",
       emotion: 1,
     });
-  };
+  }
 
   return (
     <div className="DiaryEditor">
@@ -59,8 +62,7 @@ const DiaryEditor = ({ onCreate }) => {
         <select
           name="emotion"
           value={state.emotion}
-          onChange={handleChangeState}
-        >
+          onChange={handleChangeState}>
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>
@@ -75,4 +77,4 @@ const DiaryEditor = ({ onCreate }) => {
   );
 };
 
-export default DiaryEditor;
+export default React.memo(DiaryEditor);
