@@ -35,9 +35,6 @@ const reducer = function (state, action) {
   }
 };
 
-export const DiaryStateContext = React.createContext();
-export const DiaryDispatchContext = React.createContext();
-
 const App = () => {
   const [data, dispatch] = useReducer(reducer, []);
   const dataId = useRef(0);
@@ -114,4 +111,6 @@ const App = () => {
   );
 };
 
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 export default App;
