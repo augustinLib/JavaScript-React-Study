@@ -86,3 +86,13 @@ textarea {
   margin-top: 10px;
   margin-bottom: 30px;
 }
+
+/* Diary List */
+
+.menu_wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
