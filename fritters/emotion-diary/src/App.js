@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, { useReducer, useRef } from "react";
+import React, { useReducer, useRef, useEffect } from "react";
 
 import Home from "./pages/Home";
 import New from "./pages/New";
@@ -30,56 +30,34 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 0,
-    emotion: 1,
-    content: "오늘은 기분이 좋았다.",
-    date: new Date().getTime(),
-  },
-  {
-    id: 1,
-    emotion: 3,
-    content: "오늘은 기분이 좋았다.",
-    date: new Date().getTime() + 1,
-  },
-  {
-    id: 2,
-    emotion: 4,
-    content: "오늘은 기분이 좋았다.",
-    date: new Date().getTime() + 2,
-  },
-  {
-    id: 3,
-    emotion: 4,
-    content: "오늘은 기분이 좋았다.",
-    date: new Date().getTime() + 3,
-  },
-  {
-    id: 4,
-    emotion: 5,
-    content: "오늘은 기분이 좋았다.",
-    date: new Date().getTime() + 4,
-  },
-];
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+    if (localData) {
+      const diaryList = JSON.parse(localData).sort(
+        (a, b) => parseInt(b.id) - parseInt(a.id)
+      );
+      dataId.current = parseInt(diaryList[0].id + 1);
+      dispatch({ type: "INIT", data: diaryList });
+    }
+  }, []);
 
   const onCreate = (date, content, emotion) => {
     dispatch({
       type: "CREATE",
       data: {
         id: dataId.current++,
-        date: new Date(date).getItem(),
+        date: new Date(date).getTime(),
         content,
         emotion,
       },
@@ -95,7 +73,7 @@ function App() {
       type: "EDIT",
       data: {
         id: targetId,
-        date: new Date(date).getItem(),
+        date: new Date(date).getTime(),
         content,
         emotion,
       },
@@ -110,8 +88,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
               <Route path="/diary" element={<Diary />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import DiaryItem from "./DiaryItem";
@@ -15,7 +15,7 @@ const filterOptionList = [
   { value: "sad", text: "슬픔" },
 ];
 
-const ControlMenu = ({ value, onChange, optionList }) => {
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
   return (
     <select
       className={"ControlMenu"}
@@ -28,7 +28,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
       ))}
     </select>
   );
-};
+});
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();
@@ -38,9 +38,9 @@ const DiaryList = ({ diaryList }) => {
   const getProcessedDiaryList = () => {
     const compare = (a, b) => {
       if (sortType === "latest") {
-        return parseInt(b.date) - parseInt(a.date);
-      } else {
         return parseInt(a.date) - parseInt(b.date);
+      } else {
+        return parseInt(b.date) - parseInt(a.date);
       }
     };
     const copyList = JSON.parse(JSON.stringify(diaryList));
@@ -50,8 +50,8 @@ const DiaryList = ({ diaryList }) => {
         ? copyList
         : copyList.filter((it) =>
             filterState === "happy"
-              ? parseInt(it.emotion) > 3
-              : parseInt(it.emotion) <= 3
+              ? parseInt(it.emotion) < 3
+              : parseInt(it.emotion) >= 3
           );
     const sortedList = filteredList.sort(compare);
     return sortedList;

@@ -1,4 +1,5 @@
 import MyButton from "./MyButton";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const DiaryItem = ({ id, emotion, content, date }) => {
@@ -26,10 +27,10 @@ const DiaryItem = ({ id, emotion, content, date }) => {
         <div className="diary_content_preview">{content}</div>
       </div>
       <div className="btn_wrapper">
-        <MyButton text={"수정하기"} />
+        <MyButton text={"수정하기"} onClick={goEdit} />
       </div>
     </div>
   );
 };
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
