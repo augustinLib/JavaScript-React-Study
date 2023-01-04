@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h2><%= postInfo.title %></h2>
+    <p><%= moment(postInfo.date).format("YYYY MMMM Do HH:mm") %></p>
+    <p><%= postInfo.content %></p>
+    <button id="edit" data-post_num="<%= postInfo._id %>">수정</button>
+    <button id="delete" data-post_num="<%= postInfo._id %>">삭제</button>
+    <script>
+      $("#edit").click((e) => {
+        location.href = "/post/edit/" + e.target.dataset.post_num;
+      });
+      $("#delete").click((e) => {
+        $.ajax({
+          method: "delete",
+          url: "/post/delete",
+          data: {
+            postNum: e.target.dataset.post_num,
+          },
+        })
+          .done((response) => {
+            alert("성공");
+            location.href = "/";
+          })
+          .fail((xhr, status, err) => {
+            alert("실패");
+            console.log(err);
+          });
+      });
+    </script>
+  </body>
+</html>

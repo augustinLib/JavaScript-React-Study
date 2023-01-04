@@ -65,5 +65,8 @@ Temporary Items
 dist/
 node_modules/
 
+config.js
+photo.jpg
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
 
