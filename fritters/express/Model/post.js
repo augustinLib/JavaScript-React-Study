@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
-const postSchema = new Schema(
+const postSchema = new mongoose.Schema(
   {
     title: String, // String is shorthand for {type: String}
     content: String,
     postNum: Number,
-    date: {
-      type: Date,
-      default: Date.now,
-    },
   },
   { timestamps: true, collection: "posts" }
 );

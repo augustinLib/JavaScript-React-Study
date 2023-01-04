@@ -7,7 +7,7 @@
     <ul>
       <% for(let i = 0; i < postData.length; i++) { %>
       <li>
-        <a href="/post/<%= postData[i]._id %>"><%= postData[i].title %></a>
+        <a href="/post/<%= postData[i].postNum %>"><%= postData[i].title %></a>
       </li>
       <% } %>
     </ul>

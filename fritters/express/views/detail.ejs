@@ -12,11 +12,18 @@
   </head>
 
   <body>
-    <h2><%= postInfo.title %></h2>
-    <p><%= moment(postInfo.date).format("YYYY MMMM Do HH:mm") %></p>
-    <p><%= postInfo.content %></p>
-    <button id="edit" data-post_num="<%= postInfo._id %>">수정</button>
-    <button id="delete" data-post_num="<%= postInfo._id %>">삭제</button>
+    <div>
+      <h2><%= postInfo.title %></h2>
+      <p><%= moment(postInfo.createdAt).format("YYYY MMMM Do, HH:mm") %></p>
+      <p><%= postInfo.content %></p>
+      <button id="edit" data-post_num="<%= postInfo.postNum %>">
+        수정하기
+      </button>
+      <button id="delete" data-post_num="<%= postInfo.postNum %>">
+        삭제하기
+      </button>
+    </div>
+
     <script>
       $("#edit").click((e) => {
         location.href = "/post/edit/" + e.target.dataset.post_num;
@@ -30,12 +37,14 @@
           },
         })
           .done((response) => {
-            alert("성공");
+            //요청이 성공했을 때 수행할 코드
+            alert("글이 삭제되었습니다.");
             location.href = "/";
           })
           .fail((xhr, status, err) => {
-            alert("실패");
-            console.log(err);
+            //요청이 실패했을 때 수행할 코드
+            alert("글을 삭제하는 데 실패하였습니다.");
+            location.href = "/";
           });
       });
     </script>
