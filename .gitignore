@@ -67,6 +67,9 @@ node_modules/
 
 config.js
 photo.jpg
+/node_modules
+dev.js
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
+
 

@@ -15,6 +15,11 @@
     <div>
       <h2><%= postInfo.title %></h2>
       <p><%= moment(postInfo.createdAt).format("YYYY MMMM Do, HH:mm") %></p>
+      <img
+        src="/image/<%= postInfo.image %>"
+        alt=""
+        class="src"
+        style="width: 50%" />
       <p><%= postInfo.content %></p>
       <button id="edit" data-post_num="<%= postInfo.postNum %>">
         수정하기

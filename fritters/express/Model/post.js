@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema(
     title: String, // String is shorthand for {type: String}
     content: String,
     postNum: Number,
+    image: String,
   },
   { timestamps: true, collection: "posts" }
 );
