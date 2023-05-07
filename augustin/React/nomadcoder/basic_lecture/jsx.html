@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    /* const h3 = React.createElement(
+      "h3",
+      {
+        id: "title",
+        style: { color: "red" },
+        onMouseEnter: () => console.log("Mouse entered"),
+      },
+      "Hello World"
+    ); */
+
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("Mouse entered")}>
+        "Hello World"
+      </h3>
+    );
+
+    /* const btn = React.createElement(
+      "button",
+      {
+        id: "btn",
+        style: {
+          backgroundColor: "blue",
+        },
+        onClick: () => console.log("Button clicked"),
+      },
+      "Click me"
+    ); */
+
+    const Button = () => (
+      <button
+        id="btn"
+        style={{ backgroundColor: "blue" }}
+        onClick={() => console.log("Button clicked")}
+      >
+        Click me
+      </button>
+    );
+
+    const Container = (
+      <div>
+        <Title />
+        <Button />
+        <Button />
+        <Button />
+        <Button />
+      </div>
+    );
+
+    /* render : React element를 가상 DOM에 보여주기*/
+    ReactDOM.render(Container, root);
+  </script>
+</html>
